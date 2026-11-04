@@ -1,0 +1,30 @@
+{
+  "name": "backend-seminar-6",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "node prisma/seed.js",
+    "db:studio": "prisma studio",
+    "exercises": "node src/exercises.js"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "dotenv": "16.6.1",
+    "@prisma/client": "6.19.0"
+  },
+  "devDependencies": {
+    "prisma": "6.19.0",
+    "supertest": "7.1.4"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}

@@ -1,0 +1,24 @@
+@base = http://localhost:3000
+
+GET {{base}}/books
+
+###
+GET {{base}}/books/1
+
+###
+GET {{base}}/books/search?q=node
+
+###
+POST {{base}}/books
+Content-Type: application/json
+
+{"title": "Go", "price": 35000, "authorId": 1}
+
+###
+POST {{base}}/books
+Content-Type: application/json
+
+{}
+
+###
+GET {{base}}/unknown

@@ -1,0 +1,29 @@
+### All books - 200
+GET http://localhost:3000/books
+
+### Search - 200
+GET http://localhost:3000/books?q=node
+
+### Case insensitive - 200
+GET http://localhost:3000/books?q=NODE
+
+### Book 2 - 200
+GET http://localhost:3000/books/2
+
+### Missing book - 404
+GET http://localhost:3000/books/99
+
+### Invalid id - 404
+GET http://localhost:3000/books/abc
+
+### All users without passwords - 200
+GET http://localhost:3000/users
+
+### User 1 - 200
+GET http://localhost:3000/users/1
+
+### Missing user - 404
+GET http://localhost:3000/users/99
+
+### Health - 200
+GET http://localhost:3000/health

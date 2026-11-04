@@ -1,0 +1,15 @@
+{
+  "name": "backend-seminar-2",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Seminar 2: JavaScript modules and Express API",
+  "scripts": {
+    "dev": "node --watch src/app.js",
+    "start": "node src/app.js",
+    "exercises": "node src/exercises.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

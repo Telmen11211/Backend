@@ -1,0 +1,15 @@
+CREATE TABLE "Book" (
+ "id" SERIAL PRIMARY KEY,
+ "title" TEXT NOT NULL,
+ "price" INTEGER NOT NULL,
+ "isAvailable" BOOLEAN NOT NULL DEFAULT true,
+ "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE "User" (
+ "id" SERIAL PRIMARY KEY,
+ "name" TEXT NOT NULL,
+ "email" TEXT NOT NULL,
+ "role" TEXT NOT NULL DEFAULT 'USER',
+ "password" TEXT
+);
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

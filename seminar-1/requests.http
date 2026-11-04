@@ -1,0 +1,29 @@
+### Үндсэн мэдээлэл - 200
+GET http://localhost:3000/
+
+### Серверийн төлөв - 200
+GET http://localhost:3000/health
+
+### Хэрэглэгч - 200
+GET http://localhost:3000/profile
+
+### Номын id - 200
+GET http://localhost:3000/books/1
+
+### Өөр id - 200
+GET http://localhost:3000/books/99
+
+### Тоо биш id - семинарын жишээгээр id нь JSON-д null болно
+GET http://localhost:3000/books/abc
+
+### Төслийн тухай - 200
+GET http://localhost:3000/about
+
+### 3 оюутны array - 200
+GET http://localhost:3000/students
+
+### 2 хичээлийн object array - 200
+GET http://localhost:3000/courses
+
+### Байхгүй зам - 404
+GET http://localhost:3000/nothing
