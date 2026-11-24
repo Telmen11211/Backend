@@ -919,6 +919,126 @@
           }
         },
         {
+          "name": "400 · Invalid category delete ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"JSON error\", () => pm.expect(pm.response.json().message).to.be.a(\"string\"));",
+                  "pm.test(\"Response values match\", () => { pm.expect(pm.response.json().field).to.equal(\"id\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/categories/abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories",
+                "abc"
+              ]
+            }
+          }
+        },
+        {
+          "name": "400 · Invalid brand delete ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"JSON error\", () => pm.expect(pm.response.json().message).to.be.a(\"string\"));",
+                  "pm.test(\"Response values match\", () => { pm.expect(pm.response.json().field).to.equal(\"id\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/brands/abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "brands",
+                "abc"
+              ]
+            }
+          }
+        },
+        {
+          "name": "400 · Invalid product delete ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"JSON error\", () => pm.expect(pm.response.json().message).to.be.a(\"string\"));",
+                  "pm.test(\"Response values match\", () => { pm.expect(pm.response.json().field).to.equal(\"id\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products/abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "abc"
+              ]
+            }
+          }
+        },
+        {
+          "name": "400 · Invalid review delete ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"JSON error\", () => pm.expect(pm.response.json().message).to.be.a(\"string\"));",
+                  "pm.test(\"Response values match\", () => { pm.expect(pm.response.json().field).to.equal(\"id\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reviews/abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "abc"
+              ]
+            }
+          }
+        },
+        {
           "name": "400 · Invalid category page",
           "event": [
             {
