@@ -445,7 +445,7 @@ paths:
               description: Compact wall charger
               inStock: true
               categoryId: 1
-              brandId: 
+              brandId: null
       responses:
         '201':
           description: Created.
@@ -507,7 +507,7 @@ paths:
               "$ref": "#/components/schemas/ProductPatch"
             example:
               price: 89000
-              brandId: 
+              brandId: null
       responses:
         '200':
           description: Successful request.
