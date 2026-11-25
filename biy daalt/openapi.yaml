@@ -1,0 +1,1259 @@
+---
+openapi: 3.0.3
+info:
+  title: Store API | BED411
+  version: 1.0.0
+  description: Electronics catalog, stock status and product reviews. Student code b24fm1012.
+servers:
+- url: "/"
+tags:
+- name: Categories
+- name: Brands
+- name: Products
+- name: Reviews
+paths:
+  "/categories":
+    get:
+      tags:
+      - Categories
+      summary: List categories
+      operationId: getCategories
+      parameters:
+      - "$ref": "#/components/parameters/Page"
+      - "$ref": "#/components/parameters/Limit"
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CategoryList"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+    post:
+      tags:
+      - Categories
+      summary: Create a category
+      operationId: postCategories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CategoryCreate"
+            example:
+              name: Аудио дагалдах хэрэгсэл
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Category"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '409':
+          description: A unique value is already in use or a category still contains products.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Category name already exists
+                field: name
+  "/categories/{id}":
+    parameters:
+    - "$ref": "#/components/parameters/Id"
+    get:
+      tags:
+      - Categories
+      summary: Get a category with related counts
+      operationId: getCategoriesById
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CategoryDetail"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+    patch:
+      tags:
+      - Categories
+      summary: Update a category
+      operationId: patchCategoriesById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CategoryPatch"
+            example:
+              name: Дууны дагалдах хэрэгсэл
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Category"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+        '409':
+          description: A unique value is already in use or a category still contains products.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Category name already exists
+                field: name
+    delete:
+      tags:
+      - Categories
+      summary: Delete a category
+      operationId: deleteCategoriesById
+      responses:
+        '204':
+          description: Deleted. Empty response body.
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+        '409':
+          description: A unique value is already in use or a category still contains products.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Category name already exists
+                field: name
+  "/brands":
+    get:
+      tags:
+      - Brands
+      summary: List brands
+      operationId: getBrands
+      parameters:
+      - "$ref": "#/components/parameters/Page"
+      - "$ref": "#/components/parameters/Limit"
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BrandList"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+    post:
+      tags:
+      - Brands
+      summary: Create a brand
+      operationId: postBrands
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BrandCreate"
+            example:
+              name: Anker
+              foundedYear: 2011
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Brand"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+  "/brands/{id}":
+    parameters:
+    - "$ref": "#/components/parameters/Id"
+    get:
+      tags:
+      - Brands
+      summary: Get a brand with related counts
+      operationId: getBrandsById
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BrandDetail"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+    patch:
+      tags:
+      - Brands
+      summary: Update a brand
+      operationId: patchBrandsById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BrandPatch"
+            example:
+              foundedYear: 2012
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Brand"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+    delete:
+      tags:
+      - Brands
+      summary: Delete a brand
+      operationId: deleteBrandsById
+      responses:
+        '204':
+          description: Deleted. Empty response body.
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+  "/products":
+    get:
+      tags:
+      - Products
+      summary: List products
+      operationId: getProducts
+      parameters:
+      - "$ref": "#/components/parameters/Page"
+      - "$ref": "#/components/parameters/Limit"
+      - name: q
+        in: query
+        description: Case-insensitive substring of the name or description.
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 200
+      - name: categoryId
+        in: query
+        description: Category ID.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+      - name: brandId
+        in: query
+        description: Brand ID.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+      - name: hasBrand
+        in: query
+        description: False returns products with no brand.
+        schema:
+          type: boolean
+      - name: minYear
+        in: query
+        description: Earliest release year, inclusive.
+        schema:
+          type: integer
+          minimum: 1900
+          maximum: 2147483647
+          description: At most next calendar year.
+      - name: maxYear
+        in: query
+        description: Latest release year, inclusive.
+        schema:
+          type: integer
+          minimum: 1900
+          maximum: 2147483647
+          description: At most next calendar year.
+      - name: inStock
+        in: query
+        description: Filter by availability.
+        schema:
+          type: boolean
+      - name: sort
+        in: query
+        description: Product sort field.
+        schema:
+          type: string
+          enum:
+          - name
+          - releaseYear
+          - price
+          - createdAt
+          default: createdAt
+      - "$ref": "#/components/parameters/Order"
+      - name: minRating
+        in: query
+        description: Minimum average review rating.
+        schema:
+          type: number
+          minimum: 1
+          maximum: 5
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProductList"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+    post:
+      tags:
+      - Products
+      summary: Create a product
+      operationId: postProducts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ProductCreate"
+            example:
+              name: USB-C 65W Charger
+              releaseYear: 2024
+              price: 99000
+              description: Compact wall charger
+              inStock: true
+              categoryId: 1
+              brandId: null
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Product"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+  "/products/{id}":
+    parameters:
+    - "$ref": "#/components/parameters/Id"
+    get:
+      tags:
+      - Products
+      summary: Get a product with related counts
+      operationId: getProductsById
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProductDetail"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+    patch:
+      tags:
+      - Products
+      summary: Update a product
+      operationId: patchProductsById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ProductPatch"
+            example:
+              price: 89000
+              brandId: null
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Product"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+    delete:
+      tags:
+      - Products
+      summary: Delete a product
+      operationId: deleteProductsById
+      responses:
+        '204':
+          description: Deleted. Empty response body.
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+  "/categories/{id}/products":
+    parameters:
+    - "$ref": "#/components/parameters/Id"
+    get:
+      tags:
+      - Categories
+      summary: List products in a category
+      operationId: getCategoriesByIdProducts
+      parameters:
+      - "$ref": "#/components/parameters/Page"
+      - "$ref": "#/components/parameters/Limit"
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProductList"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+  "/brands/{id}/products":
+    parameters:
+    - "$ref": "#/components/parameters/Id"
+    get:
+      tags:
+      - Brands
+      summary: List products from a brand
+      operationId: getBrandsByIdProducts
+      parameters:
+      - "$ref": "#/components/parameters/Page"
+      - "$ref": "#/components/parameters/Limit"
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ProductList"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+  "/products/{id}/reviews":
+    parameters:
+    - "$ref": "#/components/parameters/Id"
+    get:
+      tags:
+      - Reviews
+      summary: List reviews for a product
+      operationId: getProductsByIdReviews
+      parameters:
+      - "$ref": "#/components/parameters/Page"
+      - "$ref": "#/components/parameters/Limit"
+      - name: sort
+        in: query
+        description: Review sort field.
+        schema:
+          type: string
+          enum:
+          - rating
+          - createdAt
+          default: createdAt
+      - "$ref": "#/components/parameters/Order"
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ReviewList"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+    post:
+      tags:
+      - Reviews
+      summary: Create a review for a product
+      operationId: postProductsByIdReviews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ReviewCreate"
+            example:
+              authorName: Н. Сараа
+              rating: 5
+              comment: Их эвтэйхэн.
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Review"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+        '409':
+          description: A unique value is already in use or a category still contains products.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Category name already exists
+                field: name
+  "/reviews/{id}":
+    parameters:
+    - "$ref": "#/components/parameters/Id"
+    patch:
+      tags:
+      - Reviews
+      summary: Update review rating or comment
+      operationId: patchReviewsById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ReviewPatch"
+            example:
+              rating: 4
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Review"
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+    delete:
+      tags:
+      - Reviews
+      summary: Delete a review
+      operationId: deleteReviewsById
+      responses:
+        '204':
+          description: Deleted. Empty response body.
+        '400':
+          description: Invalid identifier, query or JSON body.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Invalid value
+                field: rating
+        '404':
+          description: Requested record or parent was not found.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+              example:
+                message: Record not found
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      description: Positive resource ID.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 2147483647
+      required: true
+    Page:
+      name: page
+      in: query
+      description: Page number.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 2147483647
+        default: 1
+    Limit:
+      name: limit
+      in: query
+      description: Number of records per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 10
+    Order:
+      name: order
+      in: query
+      description: Sort direction.
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+      required:
+      - message
+    PageMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 50
+        total:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+        pages:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+      required:
+      - page
+      - limit
+      - total
+      - pages
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - createdAt
+    CategoryCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+      additionalProperties: false
+      required:
+      - name
+    CategoryPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+      minProperties: 1
+      additionalProperties: false
+    CategoryList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Category"
+        meta:
+          "$ref": "#/components/schemas/PageMeta"
+      required:
+      - data
+      - meta
+    Brand:
+      type: object
+      properties: &1
+        id:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        foundedYear:
+          type: integer
+          minimum: 1900
+          maximum: 2147483647
+          description: At most next calendar year.
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      required: &2
+      - id
+      - name
+      - foundedYear
+      - createdAt
+    BrandCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        foundedYear:
+          type: integer
+          minimum: 1900
+          maximum: 2147483647
+          description: At most next calendar year.
+          nullable: true
+      additionalProperties: false
+      required:
+      - name
+    BrandPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        foundedYear:
+          type: integer
+          minimum: 1900
+          maximum: 2147483647
+          description: At most next calendar year.
+          nullable: true
+      minProperties: 1
+      additionalProperties: false
+    BrandList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Brand"
+        meta:
+          "$ref": "#/components/schemas/PageMeta"
+      required:
+      - data
+      - meta
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        releaseYear:
+          type: integer
+          minimum: 1900
+          maximum: 2147483647
+          description: At most next calendar year.
+        price:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+          description: Whole Mongolian tögrög (MNT).
+        description:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          nullable: true
+        inStock:
+          type: boolean
+          default: true
+        categoryId:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        brandId:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        category:
+          "$ref": "#/components/schemas/Category"
+        brand:
+          type: object
+          properties: *1
+          required: *2
+          nullable: true
+      required:
+      - id
+      - name
+      - releaseYear
+      - price
+      - description
+      - inStock
+      - categoryId
+      - brandId
+      - createdAt
+      - category
+      - brand
+    ProductCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        releaseYear:
+          type: integer
+          minimum: 1900
+          maximum: 2147483647
+          description: At most next calendar year.
+        price:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+          description: Whole Mongolian tögrög (MNT).
+        description:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          nullable: true
+        inStock:
+          type: boolean
+          default: true
+        categoryId:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        brandId:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+          nullable: true
+      additionalProperties: false
+      required:
+      - name
+      - releaseYear
+      - price
+      - categoryId
+    ProductPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        releaseYear:
+          type: integer
+          minimum: 1900
+          maximum: 2147483647
+          description: At most next calendar year.
+        price:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+          description: Whole Mongolian tögrög (MNT).
+        description:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          nullable: true
+        inStock:
+          type: boolean
+          default: true
+        categoryId:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        brandId:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+          nullable: true
+      minProperties: 1
+      additionalProperties: false
+    ProductList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Product"
+        meta:
+          "$ref": "#/components/schemas/PageMeta"
+      required:
+      - data
+      - meta
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          nullable: true
+        authorName:
+          type: string
+          minLength: 1
+          maxLength: 200
+        createdAt:
+          type: string
+          format: date-time
+        productId:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+      required:
+      - id
+      - rating
+      - comment
+      - authorName
+      - createdAt
+      - productId
+    ReviewCreate:
+      type: object
+      properties:
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          nullable: true
+        authorName:
+          type: string
+          minLength: 1
+          maxLength: 200
+      additionalProperties: false
+      required:
+      - rating
+      - authorName
+    ReviewPatch:
+      type: object
+      properties:
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          nullable: true
+      minProperties: 1
+      additionalProperties: false
+    ReviewList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Review"
+        meta:
+          "$ref": "#/components/schemas/PageMeta"
+      required:
+      - data
+      - meta
+    CategoryDetail:
+      allOf:
+      - "$ref": "#/components/schemas/Category"
+      - type: object
+        properties:
+          _count:
+            type: object
+            properties:
+              products:
+                type: integer
+                minimum: 0
+                maximum: 2147483647
+            required:
+            - products
+        required:
+        - _count
+    BrandDetail:
+      allOf:
+      - "$ref": "#/components/schemas/Brand"
+      - type: object
+        properties:
+          _count:
+            type: object
+            properties:
+              products:
+                type: integer
+                minimum: 0
+                maximum: 2147483647
+            required:
+            - products
+        required:
+        - _count
+    ProductDetail:
+      allOf:
+      - "$ref": "#/components/schemas/Product"
+      - type: object
+        properties:
+          _count:
+            type: object
+            properties:
+              reviews:
+                type: integer
+                minimum: 0
+                maximum: 2147483647
+            required:
+            - reviews
+          averageRating:
+            type: number
+            nullable: true
+            minimum: 1
+            maximum: 5
+        required:
+        - _count
+        - averageRating
